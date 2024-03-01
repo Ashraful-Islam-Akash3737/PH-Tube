@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PH-Tube</title>
+    <!-- tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
+
+<body class="p-2 container mx-auto">
+    <nav class="container mx-auto py-6 border-b-2 ">
+        <div class=" flex flex-wrap gap-2 md:gap-0 md:flex-nowrap md:justify-between justify-center">
+            <div class="bg-white text-black p-3 text-3xl font-black rounded-md text-center">
+                PH<span class="text-orange-400">-</span>Tube
+            </div>
+            <div class=" text-center">
+                <button id="sort-btn" class="btn btn-ghost hover:bg-slate-200 bg-slate-100 font-semibold text-xl text-slate-800 h-14 rounded-md">Sort By View
+                </button>
+            </div>
+            <div class=" text-center">
+                <a href="">
+                    <button id="sort-btn" class="btn btn-ghost hover:bg-slate-200 bg-red-600 font-semibold text-xl text-white h-14 rounded-md">Blog
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
 
 
 
     <!-- script tag for js -->
     <script src="js/script.js"></script>
 </body>
+
 </html>
