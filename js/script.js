@@ -14,7 +14,7 @@ const fetchByCategory = (data) => {
     data.forEach((card) => {
         // console.log(card);
         const categoryBtn = document.createElement('button');
-        categoryBtn.className ='btn btn-ghost bg-slate-700 text-white text-lg';
+        categoryBtn.className ='btn btn-ghost bg-slate-700 text-white text-xl md:text-lg';
         categoryBtn.innerText = card.category;
         categoryBtn.addEventListener('click', ()=> {
             fetchByCategoryId(card.category_id)
