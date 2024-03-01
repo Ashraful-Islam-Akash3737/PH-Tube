@@ -2,6 +2,13 @@
 const btnContainer = document.getElementById('btn-container');
 const cardContainer = document.getElementById('card-container');
 const errorContainer = document.getElementById('error-element');
+const sortBtn = document.getElementById('sort-btn');
+let sortByView = false;
+
+sortBtn.addEventListener('click', ()=>{
+    sortByView = true;
+    fetchByCategoryId(currentId, sortByView)
+})
 
 
 const loadData = async () => {
@@ -15,18 +22,34 @@ const fetchByCategory = (data) => {
     data.forEach((card) => {
         // console.log(card);
         const categoryBtn = document.createElement('button');
-        categoryBtn.className ='btn btn-ghost bg-slate-700 text-white text-xl md:text-lg';
+        categoryBtn.className ='category-btn btn btn-ghost bg-slate-700 text-white text-xl md:text-lg';
         categoryBtn.innerText = card.category;
         categoryBtn.addEventListener('click', ()=> {
             fetchByCategoryId(card.category_id)
+            const allBtn = document.querySelectorAll('.category-btn')
+            for (const btn of allBtn) {
+                btn.classList.remove('bg-red-500')
+            }
+            categoryBtn.classList.add('bg-red-500')
         })
         btnContainer.appendChild(categoryBtn);
     }) 
     
 }
-const fetchByCategoryId = async (categoryId) => {
+let currentId = '1000';
+const fetchByCategoryId = async (categoryId , sortByView) => {
+    currentId = categoryId;
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${categoryId}`)
     const {data} = await res.json();
+    if (sortByView) {
+        data.sort((a, b)=>{
+            const totalViewsStrFirst = a.others?.views;
+            const totalViewsStrSecond = b.others?.views;
+            const totalViewsFirstNumber = parseFloat(totalViewsStrFirst.replace('K', '')) || 0;
+            const totalViewsSecondNumber = parseFloat(totalViewsStrSecond.replace('K', '')) || 0;
+            return totalViewsSecondNumber - totalViewsFirstNumber;
+        })
+    }
 
     if (data.length === 0) {
         errorContainer.classList.remove('hidden');
@@ -73,3 +96,4 @@ const fetchByCategoryId = async (categoryId) => {
     console.log(categoryId, data);
 }
 loadData();
+fetchByCategoryId(currentId, sortByView);
