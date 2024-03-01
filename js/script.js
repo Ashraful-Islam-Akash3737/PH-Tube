@@ -1,6 +1,7 @@
 
 const btnContainer = document.getElementById('btn-container');
 const cardContainer = document.getElementById('card-container');
+const errorContainer = document.getElementById('error-element');
 
 
 const loadData = async () => {
@@ -26,7 +27,16 @@ const fetchByCategory = (data) => {
 const fetchByCategoryId = async (categoryId) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${categoryId}`)
     const {data} = await res.json();
+
+    if (data.length === 0) {
+        errorContainer.classList.remove('hidden');
+    }
+    else{
+        errorContainer.classList.add('hidden');
+
+    }
     cardContainer.innerText = '';
+    
     data.forEach((video)=>{
         let verifiedBadge = '';
         if (video.authors[0].verified) {
@@ -37,7 +47,7 @@ const fetchByCategoryId = async (categoryId) => {
         <div class="card w-full bg-base-100 shadow-xl">
                 <figure class="overflow-hidden ">
                     <img class="w-full h-60 object-cover" src="${video.thumbnail}" alt="">
-                    <h6 class="absolute bottom-[40%] right-12">0 hr</h6>
+                    <h6 class="absolute text-white bottom-[40%] right-12">0 hr</h6>
                 </figure>
                 <div class="card-body">
                     <div class="flex space-x-4 justify-start items-start">
